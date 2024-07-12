@@ -5,8 +5,8 @@
                 "autoRotation": "InTabletMode",
                 "brightness": 1,
                 "colorProfileSource": "sRGB",
-                "connectorName": "DP-1",
-                "edidHash": "3c0253b28e821a3ea4ae10967d6c78b8",
+                "connectorName": "HDMI-A-1",
+                "edidHash": "e198ac0aa522bd73ad126075c9451323",
                 "edidIdentifier": "GSM 33229 16843009 1 2023 0",
                 "highDynamicRange": false,
                 "iccProfilePath": "",
@@ -28,7 +28,7 @@
                 "autoRotation": "InTabletMode",
                 "brightness": 1,
                 "colorProfileSource": "sRGB",
-                "connectorName": "DP-2",
+                "connectorName": "DP-1",
                 "edidHash": "5b41f13632cd765ecfb11271c4c0e173",
                 "edidIdentifier": "SKG 16897 0 20 2023 0",
                 "highDynamicRange": false,
@@ -42,6 +42,29 @@
                 "rgbRange": "Automatic",
                 "scale": 2,
                 "sdrBrightness": 500,
+                "sdrGamutWideness": 0,
+                "transform": "Normal",
+                "vrrPolicy": "Automatic",
+                "wideColorGamut": false
+            },
+            {
+                "autoRotation": "InTabletMode",
+                "brightness": 1,
+                "colorProfileSource": "sRGB",
+                "connectorName": "DP-2",
+                "edidHash": "86ece7e15359415c707d01b77828a430",
+                "edidIdentifier": "GSM 49352 16843009 1 2021 0",
+                "highDynamicRange": false,
+                "iccProfilePath": "",
+                "mode": {
+                    "height": 2160,
+                    "refreshRate": 60000,
+                    "width": 3840
+                },
+                "overscan": 0,
+                "rgbRange": "Automatic",
+                "scale": 1,
+                "sdrBrightness": 200,
                 "sdrGamutWideness": 0,
                 "transform": "Normal",
                 "vrrPolicy": "Automatic",
@@ -72,6 +95,38 @@
                             "y": 0
                         },
                         "priority": 1
+                    }
+                ]
+            },
+            {
+                "lidClosed": false,
+                "outputs": [
+                    {
+                        "enabled": false,
+                        "outputIndex": 1,
+                        "position": {
+                            "x": -5760,
+                            "y": 0
+                        },
+                        "priority": -1
+                    },
+                    {
+                        "enabled": false,
+                        "outputIndex": 2,
+                        "position": {
+                            "x": -3840,
+                            "y": 0
+                        },
+                        "priority": -1
+                    },
+                    {
+                        "enabled": true,
+                        "outputIndex": 0,
+                        "position": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "priority": 0
                     }
                 ]
             }
