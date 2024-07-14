@@ -1,0 +1,24 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/nvme2n1p2
+UUID=c5b29323-4049-47aa-ab0b-7ca2c966ac16	/         	btrfs     	rw,relatime,compress=zstd:3,ssd,discard=async,space_cache=v2,subvolid=256,subvol=/@	0 0
+
+# /dev/nvme2n1p2
+UUID=c5b29323-4049-47aa-ab0b-7ca2c966ac16	/home     	btrfs     	rw,relatime,compress=zstd:3,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/@home	0 0
+
+# /dev/nvme2n1p2
+UUID=c5b29323-4049-47aa-ab0b-7ca2c966ac16	/var/log  	btrfs     	rw,relatime,compress=zstd:3,ssd,discard=async,space_cache=v2,subvolid=258,subvol=/@log	0 0
+
+# /dev/nvme2n1p2
+UUID=c5b29323-4049-47aa-ab0b-7ca2c966ac16	/var/cache/pacman/pkg	btrfs     	rw,relatime,compress=zstd:3,ssd,discard=async,space_cache=v2,subvolid=259,subvol=/@pkg	0 0
+
+# /dev/nvme2n1p2
+UUID=c5b29323-4049-47aa-ab0b-7ca2c966ac16	/.snapshots	btrfs     	rw,relatime,compress=zstd:3,ssd,discard=async,space_cache=v2,subvolid=260,subvol=/@.snapshots	0 0
+
+# /dev/nvme2n1p1
+UUID=41B0-5F68      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NJ0WA24437R-part1	/mnt/backup	btrfs	rw,relatime,ssd,discard=async 0 0
+Galactica:/mnt/storage   /mnt/storage  nfs  _netdev,noauto,x-systemd.automount,x-systemd.mount-timeout=10,timeo=14,x-systemd.idle-timeout=1min 0 0
