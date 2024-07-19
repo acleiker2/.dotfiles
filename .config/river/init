@@ -14,6 +14,8 @@ riverctl map normal Super F spawn firefox
 # Super+C to close the focused view
 riverctl map normal Super C close
 
+# Super+R to run wofi 
+riverctl map normal Super R spawn "wofi --insensitive --show drun"
 # 
 # Super+Shift+E to exit river
 riverctl map normal Super M exit
@@ -38,32 +40,6 @@ riverctl map normal Super+Shift Comma send-to-output previous
 # Super+Return to bump the focused view to the top of the layout stack
 riverctl map normal Super Return zoom
 
-# Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
-riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
-
-# Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
-
-# Super+Alt+{H,J,K,L} to move views
-riverctl map normal Super+Alt H move left 100
-riverctl map normal Super+Alt J move down 100
-riverctl map normal Super+Alt K move up 100
-riverctl map normal Super+Alt L move right 100
-
-# Super+Alt+Control+{H,J,K,L} to snap views to screen edges
-riverctl map normal Super+Alt+Control H snap left
-riverctl map normal Super+Alt+Control J snap down
-riverctl map normal Super+Alt+Control K snap up
-riverctl map normal Super+Alt+Control L snap right
-
-# Super+Alt+Shift+{H,J,K,L} to resize views
-riverctl map normal Super+Alt+Shift H resize horizontal -100
-riverctl map normal Super+Alt+Shift J resize vertical 100
-riverctl map normal Super+Alt+Shift K resize vertical -100
-riverctl map normal Super+Alt+Shift L resize horizontal 100
-
 # Super + Left Mouse Button to move views
 riverctl map-pointer normal Super BTN_LEFT move-view
 
@@ -73,22 +49,44 @@ riverctl map-pointer normal Super BTN_RIGHT resize-view
 # Super + Middle Mouse Button to toggle float
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
-for i in $(seq 1 9)
-do
-    tags=$((1 << ($i - 1)))
+riverctl map normal Super G spawn "~/.config/river/outputs --garage"
+riverctl map normal Super O spawn "~/.config/river/outputs --office"
+riverctl map normal Super B spawn "~/.config/river/outputs --bedroom"
 
-    # Super+[1-9] to focus tag [0-8]
-    riverctl map normal Super $i set-focused-tags $tags
+riverctl map normal $mod1 up    send-layout-cmd wideriver "--layout monocle"
+riverctl map normal $mod1 down  send-layout-cmd wideriver "--layout wide"
+riverctl map normal $mod1 left  send-layout-cmd wideriver "--layout left"
+riverctl map normal $mod1 right send-layout-cmd wideriver "--layout right"
 
-    # Super+Shift+[1-9] to tag focused view with tag [0-8]
-    riverctl map normal Super+Shift $i set-view-tags $tags
+riverctl map normal $mod1 Space send-layout-cmd wideriver "--layout-toggle"
 
-    # Super+Control+[1-9] to toggle focus of tag [0-8]
-    riverctl map normal Super+Control $i toggle-focused-tags $tags
+riverctl map normal $mod1 plus  send-layout-cmd wideriver "--ratio +0.025"
+riverctl map normal $mod1 equal send-layout-cmd wideriver "--ratio 0.35"
+riverctl map normal $mod1 minus send-layout-cmd wideriver "--ratio -0.025"
+
+riverctl map normal $mod2 plus  send-layout-cmd wideriver "--count +1"
+riverctl map normal $mod2 equal send-layout-cmd wideriver "--count 1"
+riverctl map normal $mod2 minus send-layout-cmd wideriver "--count -1"
+
+riverctl map normal $mod2 e     send-layout-cmd wideriver "--stack even"
+riverctl map normal $mod2 w     send-layout-cmd wideriver "--stack dwindle"
+riverctl map normal $mod2 i     send-layout-cmd wideriver "--stack diminish"
+
+# Super+[1-9] to focus tag [0-8]
+
+# Super+Shift+[1-9] to tag focused view with tag [0-8]
+# Super+Control+[1-9] to toggle focus of tag [0-8]
+riverctl map normal Super 1 set-focused-tags 1
+riverctl map normal Super 2 set-focused-tags 2
+riverctl map normal Super 3 set-focused-tags 4
+riverctl map normal Super 4 set-focused-tags 6
+
+# Super+Control+[1-9] to toggle focus of tag [0-8]
+#   riverctl map normal Super+Control $i toggle-focused-tags $tags
 
     # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
-    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
-done
+#    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+#done
 
 # Super+0 to focus all tags
 # Super+Shift+0 to tag focused view with all tags
@@ -102,21 +100,6 @@ riverctl map normal Super Space toggle-float
 # Super+F to toggle fullscreen
 riverctl map normal Super U toggle-fullscreen
 
-# Super+{Up,Right,Down,Left} to change layout orientation
-riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
-riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
-riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
-
-# Declare a passthrough mode. This mode has only a single mapping to return to
-# normal mode. This makes it useful for testing a nested wayland compositor
-riverctl declare-mode passthrough
-
-# Super+F11 to enter passthrough mode
-riverctl map normal Super F11 enter-mode passthrough
-
-# Super+F11 to return to normal mode
-riverctl map passthrough Super F11 enter-mode normal
 
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
@@ -148,6 +131,8 @@ riverctl border-color-unfocused 0x586e75
 
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
+# Set focus to always follow cursor. Options are disabled | normal | always
+riverctl focus-follows-cursor always
 
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
 riverctl rule-add -app-id 'float*' -title 'foo' float
@@ -155,11 +140,15 @@ riverctl rule-add -app-id 'float*' -title 'foo' float
 # Make all views with app-id "bar" and any title use client-side decorations
 riverctl rule-add -app-id "bar" csd
 
+# Fix borders
+riverctl rule-add ssd
 wlr-randr --output DP-1 --off
 wlr-randr --output DP-2 --off
 wlr-randr --output HDMI-A-1 --mode 3840x2160@120Hz --scale 2
+swaybg -i ~/.wallpaper/wallhaven-l3r79p.jpg --mode fill &
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout wideriver
-wideriver --layout wide --stack diminish --count 3 --ratio 0.4 --inner-gaps 5 --outer-gaps 5
-firefox
+wideriver --layout wide --stack diminish --count 3 --ratio 0.4 --inner-gaps 10 --outer-gaps 10 &
+riverctl spawn dunst
+riverctl spawn waybar

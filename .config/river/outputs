@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Parse command line options
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        --garage)
+            wlr-randr --output HDMI-A-1 --on --mode 3840x2160@120Hz --scale 2
+            wlr-randr --output DP-1 --off
+            wlr-randr --output DP-2 --off
+            ;;
+        --office)
+            # Add your code for Option 2 here
+            wlr-randr --output DP-1 --on --mode 3840x2160@138Hz --scale 1
+            wlr-randr --output HDMI-A-1 --off
+            wlr-randr --output PD-2 --off
+            ;;
+        --bedroom)
+            # Add your code for Option 3 here
+            wlr-randr --output HDMI-A-1 --off
+            wlr-randr --output DP-1 --off
+            wlr-randr --output DP-2 --on --mode 3840x2160@120Hz --scale 2
+            ;;
+        *)
+            ;;
+    esac
+
+    shift
+done

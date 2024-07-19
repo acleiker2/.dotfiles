@@ -27,7 +27,7 @@ set $bedroomDisable swaymsg 'output DP-2 disable'
 set $menu wofi --insensitive --show drun | xargs swaymsg exec --
 ### Output configuration
 #
-output * bg ~/.config/sway/wallpaper/wallhaven-l3r79p.jpg fill
+output * bg ~/.wallpaper/wallhaven-l3r79p.jpg fill
 output HDMI-A-1 mode 3840x2160@120Hz scale 2
 output DP-1 disable
 output DP-2 disable
