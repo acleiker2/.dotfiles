@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Function to display room description
+function display_room {
+    case $1 in
+        "start")
+            echo "You are in a dark room. There is a door to the north."
+            ;;
+        "north_room")
+            echo "You are in a north room. There is a key on the table."
+            ;;
+        "end")
+            echo "Congratulations! You have reached the end of the game."
+            ;;
+        *)
+            echo "Invalid room."
+            ;;
+    esac
+}
+
+# Function to handle user input
+function handle_input {
+    case $1 in
+        "north")
+            current_room="north_room"
+            ;;
+        "take key")
+            echo "You have taken the key."
+            ;;
+        "open door")
+            if [[ $current_room == "north_room" ]]; then
+                echo "You have opened the door and reached the end of the game."
+                current_room="end"
+            else
+                echo "You cannot open the door from here."
+            fi
+            ;;
+        *)
+            echo "Invalid command."
+            ;;
+    esac
+}
+
+# Main game loop
+current_room="start"
+while [[ $current_room != "end" ]]; do
+    display_room $current_room
+    read -p "> " input
+    handle_input "$input"
+done
