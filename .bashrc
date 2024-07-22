@@ -144,4 +144,3 @@ source "$OSH"/oh-my-bash.sh
 # alias ohmybash="mate ~/.oh-my-bash"
 alias steamdeck="gamescope-session-plus steam-runtime"
 alias freespace="sh ~/.dotfiles/scripts/freespace.sh"
-
